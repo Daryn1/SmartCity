@@ -1,0 +1,35 @@
+﻿@using SmartCity.Common.Enums
+@model SmartCity.Web.Models.UserTasks.UserTaskViewModel
+
+<h2>Plan a task</h2>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StartDate"></label>
+        <input asp-for="StartDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="EndDate"></label>
+        <input asp-for="EndDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Priority"></label>
+        <select asp-for="Priority" asp-items="Html.GetEnumSelectList<TaskPriority>()">123</select>
+    </div>
+    <div class="form-group">
+        <label asp-for="OwnerLogin"></label>
+        <input asp-for="OwnerLogin" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-sm btn-primary">Create</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

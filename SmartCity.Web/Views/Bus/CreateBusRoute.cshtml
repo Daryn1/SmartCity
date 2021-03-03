@@ -1,0 +1,18 @@
+﻿@model SmartCity.Web.Models.Bus.CreateBusRouteViewModel
+
+<div>
+    @Html.Partial("BusAdminPartial")
+</div>
+
+
+<div>
+    <form action="@Url.Action("CreateBusRoute","Bus")" method="post">
+        <div>
+            Routee: @Html.TextBoxFor(x => x.Route)
+            @Html.ValidationMessageFor(x=>x.Route)
+        </div>
+        <div>
+            <input type="submit" value="Add route" />
+        </div>
+    </form>
+</div>
