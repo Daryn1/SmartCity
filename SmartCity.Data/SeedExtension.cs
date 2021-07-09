@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SmartCity.Common.Enums;
 using SmartCity.Data.Entities;
@@ -16,12 +17,12 @@ namespace SmartCity.Data
 
         public static IHost Seed(this IHost host)
         {
-            using (var scope = host.Services.CreateScope())
-            {
-                AddIfNotExistRoles(scope);
-                AddIfNotExistAdmins(scope);
-                new TestDataSeeder(scope).SeedData();
-            }
+            using var scope = host.Services.CreateScope();
+            using var context = scope.ServiceProvider.GetRequiredService<SmartCityDbContext>();
+            context.Database.Migrate();
+            AddIfNotExistRoles(scope);
+            AddIfNotExistAdmins(scope);
+            new TestDataSeeder(scope).SeedData();
 
             return host;
         }

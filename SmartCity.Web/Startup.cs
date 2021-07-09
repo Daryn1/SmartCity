@@ -10,7 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.SpaServices;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SmartCity.Common.Enums;
@@ -65,8 +68,7 @@ namespace SmartCity.Web
         {
             services.AddRouting();
 
-            var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=SmartCity;Trusted_Connection=True;MultipleActiveResultSets=true;";
-            services.AddDbContext<SmartCityDbContext>(option => option.UseSqlServer(connectionString));
+            services.AddDbContext<SmartCityDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("SmartCity")));
 
             services.AddAuthentication(AuthMethod)
                 .AddCookie(AuthMethod, config =>
@@ -146,6 +148,12 @@ namespace SmartCity.Web
 
             services.AddScoped<CertificateService>();
             services.AddSignalR();
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         private void RegistrationMapper(IServiceCollection services)
@@ -285,16 +293,17 @@ namespace SmartCity.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
+            // if (env.IsDevelopment())
+            // {
+            //     
+            // }
+            // else
+            // {
+            //     app.UseExceptionHandler("/Home/Error");
+            //     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //     app.UseHsts();
+            // }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -316,6 +325,36 @@ namespace SmartCity.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<ChatHub>("/chathub");
+            });
+
+            /*app.Map("/shop", app1 =>
+            {
+                app1.UseSpa(spa =>
+                {
+                    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                    // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                    spa.Options.SourcePath = "ClientApp";
+                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(180);
+
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseAngularCliServer(npmScript: "start");
+                    }
+                });
+            });*/
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }
