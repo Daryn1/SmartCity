@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SmartCity.Data.Entities;
@@ -20,9 +21,15 @@ namespace SmartCity.Data.Repositories
         {
             return await DbSet.FindAsync(id);
         }
+
         public virtual async Task<List<TModel>> GetAllAsync()
         {
             return await DbSet.ToListAsync();
+        }
+
+        public IQueryable<TModel> GetAllAsQueryable()
+        {
+            return DbSet.AsQueryable();
         }
 
         public virtual async Task SaveAsync(TModel model)

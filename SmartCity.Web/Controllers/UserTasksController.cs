@@ -28,6 +28,7 @@ namespace SmartCity.Web.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
         [Route("Tasks/{relativeDateString}")]
         public IActionResult Tasks(string relativeDateString)
         {

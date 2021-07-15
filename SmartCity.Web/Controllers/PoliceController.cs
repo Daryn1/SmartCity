@@ -141,6 +141,7 @@ namespace SmartCity.Web.Controllers
             return View(result);
         }
 
+        [HttpGet]
         [Route("[controller]/[action]/{id?}")]
         [OnlyPoliceman]
         public IActionResult Criminal(long? id)

@@ -1,7 +1,136 @@
-<div class="row">
-  <ul>
-    <li *ngFor="let item of products">
-      {{item.title}} : {{item.price}}
-    </li>
-  </ul>
+<h3 class="text-center mb-2">Product list</h3>
+
+<a class="btn btn-sm btn-primary mb-2">Create product</a>
+
+<product-create></product-create>
+
+<div class="container d-flex justify-content-center mt-50 mb-50">
+    <div class="row">
+        <div class="col-md-4 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-img-actions">
+                        <img
+                            src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png"
+                            class="card-img img-fluid"
+                            width="96"
+                            height="350"
+                            alt=""
+                        />
+                    </div>
+                </div>
+                <div class="card-body bg-light text-center">
+                    <div class="mb-2">
+                        <h6 class="font-weight-semibold mb-2">
+                            <a
+                                href="#"
+                                class="text-default mb-2"
+                                data-abc="true"
+                                >Toshiba Notebook with 500GB HDD & 8GB RAM</a
+                            >
+                        </h6>
+                        <a href="#" class="text-muted" data-abc="true"
+                            >Laptops & Notebooks</a
+                        >
+                    </div>
+                    <h3 class="mb-0 font-weight-semibold">$250.99</h3>
+                    <div>
+                        <i class="fa fa-star star"></i>
+                        <i class="fa fa-star star"></i>
+                        <i class="fa fa-star star"></i>
+                        <i class="fa fa-star star"></i>
+                    </div>
+                    <div class="text-muted mb-3">34 reviews</div>
+                    <button type="button" class="btn bg-cart">
+                        <i class="fa fa-cart-plus mr-2"></i> Add to cart
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-2" *ngFor="let p of products">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-img-actions">
+                        <img
+                            [src]="p.imageUrl"
+                            class="card-img img-fluid"
+                            width="96"
+                            height="350"
+                            alt=""
+                        />
+                    </div>
+                </div>
+                <div class="card-body bg-light text-center">
+                    <div class="mb-2">
+                        <h6 class="font-weight-semibold mb-2">
+                            <a
+                                href="#"
+                                class="text-default mb-2"
+                                data-abc="true"
+                                >{{ p.description }}</a
+                            >
+                        </h6>
+                        <a href="#" class="text-muted" data-abc="true"
+                            >Laptops & Notebooks</a
+                        >
+                    </div>
+                    <h3 class="mb-0 font-weight-semibold">{{ p.price | currency: "USD":"symbol" }}</h3>
+                    <div>
+                        <i class="fa fa-star star"></i>
+                        <i class="fa fa-star star"></i>
+                        <i class="fa fa-star star"></i>
+                        <i class="fa fa-star star"></i>
+                    </div>
+                    <div class="text-muted mb-3">34 reviews</div>
+                    <button type="button" class="btn bg-cart">
+                        <i class="fa fa-cart-plus mr-2"></i> Add to cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="row">
+    <div class="product-info col-md-4" *ngFor="let p of products">
+        <div class="card bg-light p-1 m-1">
+            <img [src]="p.imageUrl" class="img-fluid" [alt]="p.name" />
+            <ul class="product-props list-unstyled">
+                <li>
+                    <strong>Price</strong>:
+                    {{ p.price | currency: "USD":"symbol" }}
+                </li>
+                <li><strong>Units in stock:</strong>: {{ p.unitsInStock }}</li>
+                <li><strong>Description</strong>: {{ p.description }}</li>
+            </ul>
+            <!-- <button id="buyButton" class="btn btn-success" (click)="addProduct(p)">Buy</button> -->
+        </div>
+    </div>
+</div>
+
+<table class="table table-sm table-striped table-bordered m-2">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>description</th>
+            <th>imageUrl</th>
+            <th>price</th>
+            <th>unitsInStock</th>
+            <th>creationDate</th>
+            <th>modificationDate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+            <th>{{ product.id }}</th>
+            <th>{{ product.name }}</th>
+            <th>{{ product.description }}</th>
+            <th>{{ product.imageUrl }}</th>
+            <th>{{ product.price }}</th>
+            <th>{{ product.unitsInStock }}</th>
+            <th>{{ product.creationDate }}</th>
+            <th>{{ product.modificationDate }}</th>
+        </tr>
+    </tbody>
+</table>

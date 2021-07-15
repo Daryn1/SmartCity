@@ -1,0 +1,22 @@
+<div class="container custom-container">
+    <div class="col-md-12">
+      <h3 class="mb-3 text-center">Create product</h3>
+  
+      <div class="form-group">
+        <input type="text" [(ngModel)]="product.name" class="form-control" placeholder="InputValue">
+      </div>
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="product.description" class="form-control" placeholder="InputValue">
+      </div>
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="product.imageUrl" class="form-control" placeholder="InputValue">
+      </div>
+  
+      <div class="form-group">
+        <button class="btn btn-success btn-lg btn-block" (click)="addEmployee()">Create Employee</button>
+      </div>
+  
+    </div>
+  </div>

@@ -27,6 +27,7 @@ namespace SmartCity.Web.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
         [Route("Users/{userLogin}")]
         public IActionResult Profile(string userLogin)
         {

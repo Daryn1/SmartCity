@@ -121,6 +121,7 @@ namespace SmartCity.Web
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IUserTaskRepository, UserTaskRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBusRepository, BusRepository>();
             services.AddScoped<IBusRouteRepository, BusRouteRepository>();
             services.AddScoped<IMedicalInsuranceRepository, MedicalInsuranceRepository>();
@@ -137,6 +138,7 @@ namespace SmartCity.Web
             services.AddScoped<IMessengerService, MessengerService>();
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddHttpContextAccessor();
 
@@ -154,6 +156,9 @@ namespace SmartCity.Web
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();
         }
 
         private void RegistrationMapper(IServiceCollection services)
@@ -293,6 +298,16 @@ namespace SmartCity.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             app.UseDeveloperExceptionPage();
             // if (env.IsDevelopment())
             // {

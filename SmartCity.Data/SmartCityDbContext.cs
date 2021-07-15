@@ -44,6 +44,8 @@ namespace SmartCity.Data
 
         public DbSet<Friendship> Friendships { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+
         public DbSet<MedicalInsurance> MedicalInsurances { get; set; }
         public DbSet<MedicineCertificate> MedicineCertificates { get; set; }
         public DbSet<ReceptionOfPatients> ReceptionOfPatients { get; set; }

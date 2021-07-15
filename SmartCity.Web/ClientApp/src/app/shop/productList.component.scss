@@ -1,0 +1,21 @@
+.product-info {
+    border: 1px solid grey;
+    display: inline-block;
+    padding: 8px 2px;
+    margin: 2px;
+    width: 450px;
+    background-color: lightgray;
+    border-radius: 5px;
+}
+
+.product-info img {
+    max-width: 100px;
+    float: left;
+    margin: 0 2px;
+    border: solid 1px black;
+}
+
+.product-info .product-name {
+    font-size: large;
+    font-weight: bold;
+}

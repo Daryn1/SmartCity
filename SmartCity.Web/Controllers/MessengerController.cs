@@ -70,6 +70,7 @@ namespace SmartCity.Web.Controllers
             return View(startedChatViewModels);
         }
 
+        [HttpGet]
         [Route("{controller}/{recipientLogin}")]
         public IActionResult Chat(string recipientLogin)
         {
